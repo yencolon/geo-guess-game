@@ -10,9 +10,10 @@ interface GeometryCollection {
     geometries: Geometry[];
 }
 
+
 interface Geometry {
     type: string;
-    arcs: number | number[] | number[][];
+    arcs: number[][][];
     id: string;
     properties: Properties;
 }
@@ -21,5 +22,6 @@ interface Properties {
     name: string;
     selected?: boolean;
 }
+
 
 export default Topology;
