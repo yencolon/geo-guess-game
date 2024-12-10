@@ -1,8 +1,9 @@
 import Guess from './pages/guess'
+import RandomGuess from './pages/guess-random'
 
 function App() {
   return (
-    <Guess ></Guess>
+    <RandomGuess ></RandomGuess>
   )
 }
 

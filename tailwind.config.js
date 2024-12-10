@@ -2,8 +2,7 @@
 export default {
   content: ["./src/**/*.{html,tsx}", "index.html"],
   theme: {
-    extend: {},
+    extend: {}
   },
   plugins: [],
-}
-
+};

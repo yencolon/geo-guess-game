@@ -3,46 +3,52 @@ import Topology from '@/types/Topology';
 import { ComposableMap, Geographies, Geography } from 'react-simple-maps';
 import Coordinate from '@/types/Coordinates';
 
+interface WorldMapProps {
+  topologyMap: Topology;
+  coordinates: Coordinate;
+  currentCountry?: string;
+}
 
-export default function WorldMap({ topologyMap, coordinates }: { topologyMap: Topology, coordinates: Coordinate }) {
+const STEP_SIZE = 4; // Adjust this step size to control the speed of transition
+const INTERVAL_TIME = 10; // Interval time in milliseconds
 
+export default function WorldMap({ topologyMap, coordinates, currentCountry = '' }: WorldMapProps) {
   const [currentCoordinates, setCurrentCoordinates] = useState<Coordinate>(coordinates);
 
   useEffect(() => {
-    const step = 5; // Adjust this step size to control the speed of transition
-    const intervalTime = 50; // Interval time in milliseconds
-
     const timer = setInterval(() => {
       setCurrentCoordinates(current => {
         const latitudeDiff = coordinates.latitude - current.latitude;
         const longitudeDiff = coordinates.longitude - current.longitude;
 
-        if (Math.abs(latitudeDiff) < step && Math.abs(longitudeDiff) < step) {
+        if (Math.abs(latitudeDiff) < STEP_SIZE && Math.abs(longitudeDiff) < STEP_SIZE) {
           clearInterval(timer);
-          return coordinates;
+          return coordinates; // Return final coordinates when close enough
         }
 
         return {
-          latitude: current.latitude + Math.sign(latitudeDiff) * Math.min(step, Math.abs(latitudeDiff)),
-          longitude: current.longitude + Math.sign(longitudeDiff) * Math.min(step, Math.abs(longitudeDiff))
+          latitude: current.latitude + Math.sign(latitudeDiff) * Math.min(STEP_SIZE, Math.abs(latitudeDiff)),
+          longitude: current.longitude + Math.sign(longitudeDiff) * Math.min(STEP_SIZE, Math.abs(longitudeDiff)),
         };
       });
-    }, intervalTime);
+    }, INTERVAL_TIME);
 
-    return () => clearInterval(timer);
+    return () => clearInterval(timer); // Cleanup on unmount
   }, [coordinates]);
 
   return (
-    <div className='w-3/4 max-h-screens'>
+    <div className='w-full lg:w-4/5 max-h-screen'>
       <ComposableMap
         projection="geoOrthographic"
-        projectionConfig={
-          {
-            rotate: [-1 * currentCoordinates.longitude, -1 * currentCoordinates.latitude, 0],
-          }
-        }
+        projectionConfig={{
+          rotate: [-currentCoordinates.longitude, -currentCoordinates.latitude, 0],
+          center: [0, 0],
+        }}
+        className=''
       >
-        <Geographies geography={topologyMap} >
+        <circle cx={400} cy={300} r={250} fill="#0ea5e9" stroke="#9ca3af" />
+        
+        <Geographies geography={topologyMap}>
           {({ geographies }) =>
             geographies.map((geo) => (
               <Geography
@@ -50,19 +56,19 @@ export default function WorldMap({ topologyMap, coordinates }: { topologyMap: To
                 geography={geo}
                 fill="#EAEAEC"
                 stroke="#D6D6DA"
-                strokeWidth={1}
+                strokeWidth={0.1}
                 style={{
                   default: {
-                    fill: geo.properties.selected ? "#06b6d4" : "#EAEAEC",
+                    fill: currentCountry === geo.properties.name ? "#fbbf24" : geo.properties.selected ? "#34d399" : "#EAEAEC",
                     outline: "none",
                   },
                   hover: {
                     fill: "#F53",
-                    outline: "none"
+                    outline: "none",
                   },
                   pressed: {
                     fill: "#E42",
-                    outline: "none"
+                    outline: "none",
                   },
                 }}
               />
@@ -71,5 +77,5 @@ export default function WorldMap({ topologyMap, coordinates }: { topologyMap: To
         </Geographies>
       </ComposableMap>
     </div>
-  )
+  );
 }
