@@ -1,5 +1,4 @@
-import React from 'react';
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Guess from './pages/guess';
 import Home from './pages/home';
 import RandomGuess from './pages/guess-random';
