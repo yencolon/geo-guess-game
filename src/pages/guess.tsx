@@ -9,7 +9,7 @@ import Coordinate from '@/types/Coordinates';
 import { calculateGeometryCentroid } from '@/lib/geo-utils';
 
 export default function Guess() {
-  const [userGuess, setUserGuess] = useState<string>('VENEZUELA');
+  const [userGuess, setUserGuess] = useState<string>('');
   const [guessedCountries, setGuessedCountries] = useState<string[]>([]);
   const [score, setScore] = useState(0);
   const [topologyMap, setTopologyMap] = useState<Topology>(geoUrl as Topology);

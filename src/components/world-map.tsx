@@ -17,11 +17,11 @@ const INTERVAL_TIME = 10;
 export default function WorldMap({ topologyMap, coordinates, currentCountry = '' }: WorldMapProps) {
   const [currentCoordinates, setCurrentCoordinates] = useState<Coordinate>(coordinates);
   const [zoom, setZoom] = useState(0.85);
-  const intervalRef = useRef<NodeJS.Timeout | null>(null);
+  const intervalRef = useRef<number | null>(null);
 
   const handleMouseDown = useCallback((callback: () => void) => {
     callback();
-    intervalRef.current = setInterval(callback, 100);
+    intervalRef.current = window.setInterval(callback, 100);
   }, []);
 
   const handleMouseUp = useCallback(() => {
