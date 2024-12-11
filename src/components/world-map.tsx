@@ -2,7 +2,7 @@ import { useEffect, useState, useRef, useCallback } from 'react';
 import Topology from '@/types/Topology';
 import { ComposableMap, Geographies, Geography, Graticule } from 'react-simple-maps';
 import Coordinate from '@/types/Coordinates';
-import ControlButton from './control-buttons';
+import ControlButton from './control-button';
 import { ZoomIn, ZoomOut, RotateCw, RotateCcw, ArrowUp, ArrowDown } from 'lucide-react';
 
 interface WorldMapProps {
