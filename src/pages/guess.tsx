@@ -93,7 +93,7 @@ export default function Guess() {
           </div>
         </div>
       </div>
-      <div className='w-full h-full lg:w-5/6 flex items-center justify-center '>
+      <div className='w-full h-full lg:w-5/6 flex items-center justify-center'>
         <WorldMap topologyMap={topologyMap} coordinates={rotation} />
       </div>
     </div>
