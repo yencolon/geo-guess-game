@@ -1276,7 +1276,7 @@
             "type": "Polygon",
             "arcs": [[-417, -404]],
             "id": "PSX",
-            "properties": { "name": "West Bank" }
+            "properties": { "name": "Palestine" }
           },
           {
             "type": "Polygon",
@@ -1357,7 +1357,7 @@
             "type": "MultiPolygon",
             "arcs": [[[731]], [[732]], [[733]], [[734]], [[735]]],
             "id": "FSM",
-            "properties": { "name": "Micronesia (country)" }
+            "properties": { "name": "Micronesia" }
           },
           {
             "type": "Polygon",
